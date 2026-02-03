@@ -36,6 +36,6 @@ declare module "$app/types" {
 		};
 		Pathname(): "/";
 		ResolvedPathname(): `${"" | `/${string}`}${ReturnType<AppTypes['Pathname']>}`;
-		Asset(): string & {};
+		Asset(): "/.DS_Store" | "/favicon.ico" | "/favicon_io/.DS_Store" | "/favicon_io/about.txt" | "/favicon_io/android-chrome-192x192.png" | "/favicon_io/android-chrome-512x512.png" | "/favicon_io/apple-touch-icon.png" | "/favicon_io/favicon-16x16.png" | "/favicon_io/favicon-32x32.png" | "/favicon_io/site.webmanifest" | "/favicon_io.zip" | string & {};
 	}
 }
