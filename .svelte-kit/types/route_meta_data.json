@@ -2,5 +2,29 @@
 	"/": [
 		"src/routes/+layout.js",
 		"src/routes/+layout.js"
+	],
+	"/claudecom": [
+		"src/routes/+layout.js"
+	],
+	"/datacom": [
+		"src/routes/+layout.js"
+	],
+	"/dc-packets": [
+		"src/routes/+layout.js"
+	],
+	"/git-safari": [
+		"src/routes/+layout.js"
+	],
+	"/graphics-engine": [
+		"src/routes/+layout.js"
+	],
+	"/hierarchy-gfx-interface": [
+		"src/routes/+layout.js"
+	],
+	"/memory-safety": [
+		"src/routes/+layout.js"
+	],
+	"/us-history-timeline": [
+		"src/routes/+layout.js"
 	]
 }

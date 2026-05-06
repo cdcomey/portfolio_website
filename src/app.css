@@ -9,19 +9,34 @@
 }
 
 :root {
-  --clr-bg:         #0a0e1a;
-  --clr-surface:    #111827;
-  --clr-surface-2:  #1a2234;
-  --clr-border:     #2a3550;
-  --clr-accent:     #3b82f6;
-  --clr-accent-glow:#3b82f680;
-  --clr-accent-dim: #2563eb;
-  --clr-text:       #e2e8f0;
-  --clr-text-dim:   #8b9bb5;
-  --clr-text-bright:#f8fafc;
 
-  --font-display: 'Bebas Neue', sans-serif;
-  --font-body:    'DM Sans', sans-serif;
+
+  --color_red:          #D00B0C;
+  --color_neon:         #FF46FF;
+  --color_pink:         #FFA2FD;
+  --color_purple:       #77489C;
+  --color_blue:         #0A215B;
+  --color_teal:         #005790;
+  --color_bgry:         #0E314E;
+  --color_rblue:        #3137AA;
+
+
+    --clr-bg:         #0a0e1a;
+    --clr-surface:    #111827;
+    --clr-surface-2:  #1a2234;
+    --clr-border:     #2a3550;
+    --clr-accent:     #3b82f6;
+    --clr-accent-glow:#3b82f680;
+    --clr-accent-dim: #2563eb;
+    --clr-text:       #e2e8f0;
+    --clr-text-dim:   #8b9bb5;
+    --clr-text-bright:#f8fafc;
+
+
+
+  /* --font-display: 'Bebas Neue', sans-serif; */
+  /* --font-display: 'Helvectica', sans-serif;
+  --font-body:    'DM Sans', sans-serif; */
 
   --radius:  10px;
   --radius-sm: 6px;
@@ -63,3 +78,25 @@ img {
 ::-webkit-scrollbar-track  { background: var(--clr-bg); }
 ::-webkit-scrollbar-thumb  { background: var(--clr-border); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--clr-accent); }
+
+section {
+  font-family: 'Courier', 'Inconsolata', 'Courier', system-ui;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 90%;
+  padding: 5vh 5vw;
+  display: flex;
+  align-items: flex-start;
+  min-height: 90vh;
+  text-align: left;
+  justify-content: space-between;
+  background: #000000;      
+  overflow: hidden;        
+  z-index: 0;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+

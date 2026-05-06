@@ -3,13 +3,29 @@ export { matchers } from './matchers.js';
 export const nodes = [
 	() => import('./nodes/0'),
 	() => import('./nodes/1'),
-	() => import('./nodes/2')
+	() => import('./nodes/2'),
+	() => import('./nodes/3'),
+	() => import('./nodes/4'),
+	() => import('./nodes/5'),
+	() => import('./nodes/6'),
+	() => import('./nodes/7'),
+	() => import('./nodes/8'),
+	() => import('./nodes/9'),
+	() => import('./nodes/10')
 ];
 
 export const server_loads = [];
 
 export const dictionary = {
-		"/": [2]
+		"/": [2],
+		"/claudecom": [3],
+		"/datacom": [4],
+		"/dc-packets": [5],
+		"/git-safari": [6],
+		"/graphics-engine": [7],
+		"/hierarchy-gfx-interface": [8],
+		"/memory-safety": [9],
+		"/us-history-timeline": [10]
 	};
 
 export const hooks = {
