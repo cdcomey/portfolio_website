@@ -109,4 +109,14 @@
     /* border-radius: 10%; */
     padding: 5%;
     }
+    @media (max-width: 60em){
+        /* .big-project-title-page {
+            display: flex;
+            flex-direction: column;
+        } */
+        .big-project-title-page-alt{
+            display: flex;
+            flex-direction: column;
+        }
+    }
 </style>
