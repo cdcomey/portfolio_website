@@ -1,5 +1,10 @@
 <script>
   import { onMount } from 'svelte';
+  import About from './About.svelte';
+  import Landing from "./Landing.svelte";
+    import Header from './Header.svelte';
+  import ProjectHighlights from './ProjectHighlights.svelte';
+  import ProjectGallery from './ProjectGallery.svelte';
 
   // ─── Data ──────────────────────────────────
   const skills = [
@@ -626,95 +631,26 @@
   }
 </style>
 
-<!-- ════════════════════════════════════════════════
-     NAV
-     ════════════════════════════════════════════════ -->
-<nav>
-  <span class="nav-logo">CC</span>
-  <ul class="nav-links">
-    <li><a on:click={() => scrollTo('about')}>About</a></li>
-    <li><a on:click={() => scrollTo('projects')}>Projects</a></li>
-    <li><a on:click={() => scrollTo('experience')}>Experience</a></li>
-    <li><a on:click={() => scrollTo('skills')}>Skills</a></li>
-    <li><a on:click={() => scrollTo('contact')}>Contact</a></li>
-  </ul>
-</nav>
-
-<!-- ════════════════════════════════════════════════
-     HERO
-     ════════════════════════════════════════════════ -->
-<section class="hero" id="hero">
-  <span class="hero-badge">📍 UC Davis &nbsp;·&nbsp; Software Developer</span>
-  <h1>
-    Charles Comey
-    <span class="line2">Build. Ship. Scale.</span>
-  </h1>
-  <p class="hero-sub">
-    I build robust software — from real-time 3D robotics interfaces to interactive tools — with a focus on performance, clean architecture, and cross-platform compatibility.
-  </p>
-  <div class="hero-cta">
-    <a href="mailto:charlesdcomey@gmail.com" class="btn btn-primary">Get in Touch</a>
-    <a on:click={() => scrollTo('projects')} class="btn btn-ghost">View Projects</a>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════════
-     ABOUT
-     ════════════════════════════════════════════════ -->
-<section id="about">
-  <div class="reveal">
-    <span class="section-label">About Me</span>
-    <h2 class="section-title">A developer who ships.</h2>
-  </div>
-  <div class="about-grid">
-    <div class="about-text reveal">
-      <p>
-        I'm a <strong>B.S. Computer Science graduate</strong> from UC Davis (3.52 GPA), passionate about building software that pushes boundaries — especially at the intersection of <strong>graphics, networking, and robotics</strong>.
-      </p>
-      <p>
-        My work spans low-level graphics pipelines in Rust all the way up to user-facing interactive tools. I care about writing code that's <strong>performant, maintainable, and genuinely useful.</strong>
-      </p>
-    </div>
-    <div class="about-stats stagger">
-      <div class="stat-card reveal">
-        <div class="stat-num">3.52</div>
-        <div class="stat-label">GPA — UC Davis</div>
-      </div>
-      <div class="stat-card reveal">
-        <div class="stat-num">3998<span style="font-size:1rem">%</span></div>
-        <div class="stat-label">Performance Gain</div>
-      </div>
-      <div class="stat-card reveal">
-        <div class="stat-num">6+</div>
-        <div class="stat-label">Languages</div>
-      </div>
-      <div class="stat-card reveal">
-        <div class="stat-num">2</div>
-        <div class="stat-label">Open-Source Projects</div>
-      </div>
-    </div>
-  </div>
-</section>
+<Landing/>
+<About/>
+<ProjectHighlights/>
+<ProjectGallery/>
 
 <!-- ════════════════════════════════════════════════
      PROJECTS — DATACOM FEATURED
      ════════════════════════════════════════════════ -->
-<section id="projects">
+<!-- <section id="projects">
   <div class="reveal">
     <span class="section-label">Projects</span>
     <h2 class="section-title">Things I've Built</h2>
     <p class="section-desc">Open-source projects that demonstrate how I approach complex engineering problems end-to-end.</p>
   </div>
 
-  <!-- DATACOM hero card -->
   <div class="featured-project reveal">
     <div class="featured-visual">
-      <!-- orbiting rings -->
       <div class="orbit slow"><div class="orbit-dot"></div></div>
       <div class="orbit"><div class="orbit-dot"></div></div>
-      <!-- icon -->
       <div class="datacom-icon">
-        <!-- simple "signal / wave" SVG icon -->
         <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6 36 L14 24 L22 30 L30 16 L38 22 L46 10" stroke="#3b82f6" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
           <circle cx="46" cy="10" r="3" fill="#3b82f6"/>
@@ -739,7 +675,6 @@
     </div>
   </div>
 
-  <!-- Other projects row -->
   <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:1.2rem; margin-top:1.4rem;">
     <div class="project-card reveal">
       <div class="project-date">May 2020 – May 2025</div>
@@ -754,12 +689,12 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 <!-- ════════════════════════════════════════════════
      EXPERIENCE + EDUCATION
      ════════════════════════════════════════════════ -->
-<section id="experience">
+<!-- <section id="experience">
   <div class="reveal">
     <span class="section-label">Experience</span>
     <h2 class="section-title">Work & Education</h2>
@@ -786,12 +721,12 @@
       <div class="edu-date">Sep 2020 – Jun 2024</div>
     </div>
   </div>
-</section>
+</section> -->
 
 <!-- ════════════════════════════════════════════════
      SKILLS
      ════════════════════════════════════════════════ -->
-<section id="skills">
+<!-- <section id="skills">
   <div class="reveal">
     <span class="section-label">Skills</span>
     <h2 class="section-title">Tech Stack</h2>
@@ -809,12 +744,12 @@
       </div>
     {/each}
   </div>
-</section>
+</section> -->
 
 <!-- ════════════════════════════════════════════════
      CONTACT
      ════════════════════════════════════════════════ -->
-<section id="contact" style="padding-bottom:3rem;">
+<!-- <section id="contact" style="padding-bottom:3rem;">
   <div class="contact-strip reveal">
     <h3>Let's Work Together</h3>
     <p>I'm currently open to junior developer roles. Shoot me a message — I'd love to chat.</p>
@@ -824,11 +759,11 @@
       <a href="#" class="btn btn-ghost">GitHub</a>
     </div>
   </div>
-</section>
+</section> -->
 
 <!-- ════════════════════════════════════════════════
      FOOTER
      ════════════════════════════════════════════════ -->
-<footer>
+<!-- <footer>
   <p>© 2025 Charles Comey — Built with SvelteKit</p>
-</footer>
+</footer> -->
