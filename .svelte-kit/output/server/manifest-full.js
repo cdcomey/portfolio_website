@@ -10,7 +10,7 @@ return {
 	assets: new Set([".DS_Store",".nojekyll","assets/git_safari.png","assets/golden_gate_bridge.obj","assets/masada_test.png","assets/profile_dithered.jpg","favicon.ico"]),
 	mimeTypes: {".png":"image/png",".obj":"model/obj",".jpg":"image/jpeg"},
 	_: {
-		client: {start:"_app/immutable/entry/start.C4OMCPA5.js",app:"_app/immutable/entry/app.4tKxdAR6.js",imports:["_app/immutable/entry/start.C4OMCPA5.js","_app/immutable/chunks/Dp5X2zTK.js","_app/immutable/chunks/l9FNHwwi.js","_app/immutable/chunks/DIeogL5L.js","_app/immutable/chunks/CmS8KCde.js","_app/immutable/chunks/D26cRcGX.js","_app/immutable/entry/app.4tKxdAR6.js","_app/immutable/chunks/l9FNHwwi.js","_app/immutable/chunks/DIeogL5L.js","_app/immutable/chunks/GIOsZ6N8.js","_app/immutable/chunks/PInWWR77.js","_app/immutable/chunks/CWj6FrbW.js","_app/immutable/chunks/D26cRcGX.js","_app/immutable/chunks/-Ppu6Frm.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
+		client: {start:"_app/immutable/entry/start.CcmM1bF2.js",app:"_app/immutable/entry/app.De3J5TJ3.js",imports:["_app/immutable/entry/start.CcmM1bF2.js","_app/immutable/chunks/eZQIr8YD.js","_app/immutable/chunks/l9FNHwwi.js","_app/immutable/chunks/DIeogL5L.js","_app/immutable/chunks/B-YC7ari.js","_app/immutable/chunks/D26cRcGX.js","_app/immutable/entry/app.De3J5TJ3.js","_app/immutable/chunks/l9FNHwwi.js","_app/immutable/chunks/DIeogL5L.js","_app/immutable/chunks/GIOsZ6N8.js","_app/immutable/chunks/PInWWR77.js","_app/immutable/chunks/CWj6FrbW.js","_app/immutable/chunks/D26cRcGX.js","_app/immutable/chunks/-Ppu6Frm.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
 		nodes: [
 			__memo(() => import('./nodes/0.js')),
 			__memo(() => import('./nodes/1.js')),

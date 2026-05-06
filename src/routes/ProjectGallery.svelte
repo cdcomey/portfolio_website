@@ -13,66 +13,66 @@
     <div class="project-grid">
 
         <div class="project">
-            <a href="{base}/projects/tricopter-dynamics"><img src={gsf} alt="MultiVAC Demo"></a>
-            <a href="{base}/projects/tricopter-dynamics"><h2>Git Safari</h2></a>
-            <a href="{base}/projects/tricopter-dynamics"><h3>UrbEx For Programmers</h3></a>
-            <a href="{base}/projects/tricopter-dynamics"><p>Brief Description Lorem Ipsum </p></a>
+            <a href="{base}/"><img src={gsf} alt="MultiVAC Demo"></a>
+            <a href="{base}/"><h2>Git Safari</h2></a>
+            <a href="{base}/"><h3>UrbEx For Programmers</h3></a>
+            <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
         </div>
 
         <div class="project">
-            <a href="{base}/projects/tricopter-dynamics"><img src={datacom_default} alt="MultiVAC Demo"></a>
-            <a href="{base}/projects/tricopter-dynamics"><h2>DATACOM</h2></a>
-            <a href="{base}/projects/tricopter-dynamics"><h3>Subtitle</h3></a>
-            <a href="{base}/projects/tricopter-dynamics"><p>Brief Description Lorem Ipsum </p></a>
+            <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
+            <a href="{base}/"><h2>DATACOM</h2></a>
+            <a href="{base}/"><h3>Subtitle</h3></a>
+            <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
         </div>
 
         <div class="project">
-            <a href="{base}/projects/tricopter-dynamics"><img src={datacom_default} alt="MultiVAC Demo"></a>
-            <a href="{base}/projects/tricopter-dynamics"><h2>CLAUDECOM</h2></a>
-            <a href="{base}/projects/tricopter-dynamics"><h3>DATACOM Integration with Claude</h3></a>
-            <a href="{base}/projects/tricopter-dynamics"><p>Brief Description Lorem Ipsum </p></a>
+            <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
+            <a href="{base}/"><h2>CLAUDECOM</h2></a>
+            <a href="{base}/"><h3>DATACOM Integration with Claude</h3></a>
+            <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
         </div>
 
         <div class="project">
-            <a href="{base}/projects/tricopter-dynamics"><img src={datacom_default} alt="MultiVAC Demo"></a>
-            <a href="{base}/projects/tricopter-dynamics"><h2>Memory Safety across Large Networks</h2></a>
-            <a href="{base}/projects/tricopter-dynamics"><h3>Subtitle</h3></a>
-            <a href="{base}/projects/tricopter-dynamics"><p>Brief Description Lorem Ipsum </p></a>
+            <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
+            <a href="{base}/"><h2>Memory Safety across Large Networks</h2></a>
+            <a href="{base}/"><h3>Subtitle</h3></a>
+            <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
         </div>
 
         <div class="project">
-            <a href="{base}/projects/tricopter-dynamics"><img src={datacom_default} alt="MultiVAC Demo"></a>
-            <a href="{base}/projects/tricopter-dynamics"><h2>DATACOM Packet Interface</h2></a>
-            <a href="{base}/projects/tricopter-dynamics"><h3>Subtitle</h3></a>
-            <a href="{base}/projects/tricopter-dynamics"><p>Brief Description Lorem Ipsum </p></a>
+            <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
+            <a href="{base}/"><h2>DATACOM Packet Interface</h2></a>
+            <a href="{base}/"><h3>Subtitle</h3></a>
+            <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
         </div>
 
         <div class="project">
-            <a href="{base}/projects/tricopter-dynamics"><img src={datacom_default} alt="MultiVAC Demo"></a>
-            <a href="{base}/projects/tricopter-dynamics"><h2>US History Timeline</h2></a>
-            <a href="{base}/projects/tricopter-dynamics"><h3>Interactive Educational Tool</h3></a>
-            <a href="{base}/projects/tricopter-dynamics"><p>Brief Description Lorem Ipsum </p></a>
+            <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
+            <a href="{base}/"><h2>US History Timeline</h2></a>
+            <a href="{base}/"><h3>Interactive Educational Tool</h3></a>
+            <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
         </div>
 
         <div class="project">
-            <a href="{base}/projects/tricopter-dynamics"><img src={datacom_default} alt="MultiVAC Demo"></a>
-            <a href="{base}/projects/tricopter-dynamics"><h2> DATACOM Graphics Engine </h2></a>
-            <a href="{base}/projects/tricopter-dynamics"><h3>Mutlicamera Setup and Recording</h3></a>
-            <a href="{base}/projects/tricopter-dynamics"><p>Brief Description Lorem Ipsum </p></a>
+            <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
+            <a href="{base}/"><h2> DATACOM Graphics Engine </h2></a>
+            <a href="{base}/"><h3>Mutlicamera Setup and Recording</h3></a>
+            <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
         </div>
 
         <div class="project">
-            <a href="{base}/projects/tricopter-dynamics"><img src={datacom_default} alt="MultiVAC Demo"></a>
-            <a href="{base}/projects/tricopter-dynamics"><h2>Graphics Hierarchy</h2></a>
-            <a href="{base}/projects/tricopter-dynamics"><h3>Dependent Object Interface</h3></a>
-            <a href="{base}/projects/tricopter-dynamics"><p>Brief Description Lorem Ipsum </p></a>
+            <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
+            <a href="{base}/"><h2>Graphics Hierarchy</h2></a>
+            <a href="{base}/"><h3>Dependent Object Interface</h3></a>
+            <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
         </div>
 
         <div class="project">
-            <a href="{base}/projects/tricopter-dynamics"><img src={datacom_default} alt="MultiVAC Demo"></a>
-            <a href="{base}/projects/tricopter-dynamics"><h2>DATACOM Video Rendering</h2></a>
-            <a href="{base}/projects/tricopter-dynamics"><h3>Video Rendering Interface</h3></a>
-            <a href="{base}/projects/tricopter-dynamics"><p>Brief Description Lorem Ipsum </p></a>
+            <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
+            <a href="{base}/"><h2>DATACOM Video Rendering</h2></a>
+            <a href="{base}/"><h3>Video Rendering Interface</h3></a>
+            <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
         </div>
 
 

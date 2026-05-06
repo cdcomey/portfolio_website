@@ -1,7 +1,7 @@
 <script>
     import { base } from '$app/paths';
 </script>
-
+<!-- 
 <header class="bg-blue-500 text-white p-4">
 
             <nav>
@@ -9,15 +9,12 @@
                   <li><a href="{base}/">Home</a></li>
                   <li><a href="{base}/about">About</a></li>
                   <li><a href="{base}/projects">Projects</a></li>
-                  <!-- <li><a href="{base}/blog" class="dropdown-toggle">Blog</a></li> -->
                   <li><a href="https://www.linkedin.com/in/charles-comey-336297326/">LinkedIn</a></li>
                   <li><a href="https://github.com/cdcomey">GitHub</a></li>
-                  <!-- <li><a href="{base}/contact">Contact</a></li> -->
-                  <!-- <li><a href="">Futura Font Check</a></li> -->
                 </ul>
               </nav>
 
-</header>
+</header> -->
 
 <style>
 
