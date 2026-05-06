@@ -55,4 +55,11 @@
     border-radius: 20px;
   }
 
+  @media (max-width: 80em){
+    .about-grid {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
 </style>
