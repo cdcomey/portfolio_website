@@ -1,4 +1,78 @@
 <script>
+    import * as THREE from 'three';
+    import { onMount, onDestroy } from 'svelte';
+    import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+    import { base } from '$app/paths';
+    import {
+        colors,
+        createBasicScene,
+        createFresnelMaterials,
+        createWireframeFresnelMesh,
+        disposeScene
+    } from '$lib/three-utils.js';
+
+    const cadplot = `${base}/assets/trifecta/trifecta_cad.png`;
+    const pos_plot = `${base}/assets/trifecta/Trifecta_0_pos_plot.png`;
+    const att_plot = `${base}/assets/trifecta/Trifecta_0_att_plot.png`;
+    const cube_plot = `${base}/assets/trifecta/run_full_plot_anim.gif`;
+
+    let container;
+    let scene, camera, renderer, animationFrameId;
+
+    onMount(() => {
+        const sceneSetup = createBasicScene(container, {
+            fov: 30,
+            cameraPosition: new THREE.Vector3(0.2, 0.4, 0.03),
+            cameraTarget: new THREE.Vector3(0, 0, 0),
+            useContainerSize: true
+        });
+        scene = sceneSetup.scene;
+        camera = sceneSetup.camera;
+        renderer = sceneSetup.renderer;
+
+        const loader = new OBJLoader();
+
+        function animate() {
+            animationFrameId = requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+
+        function normalizeToUnitCube(object) {
+            const box = new THREE.Box3().setFromObject(object);
+            const size = box.getSize(new THREE.Vector3());
+            const center = box.getCenter(new THREE.Vector3());
+            const maxAxis = Math.max(size.x, size.y, size.z);
+            if (maxAxis === 0) return;
+            const scale = 1 / maxAxis;
+            object.position.sub(center.multiplyScalar(scale));
+            object.scale.multiplyScalar(scale);
+        }
+
+        loader.load(
+            `${base}/assets/golden_gate_bridge.obj`,
+            function(bridge_geom) {
+                const bridge_group = new THREE.Group();
+                bridge_geom.traverse((child) => {
+                    if (child instanceof THREE.Mesh) {
+                        const solidWireframeMesh = createWireframeFresnelMesh(
+                            child.geometry,
+                            createFresnelMaterials(new THREE.Color('#ff4f00'))
+                        );
+                        bridge_group.add(solidWireframeMesh);
+                    }
+                });
+                bridge_group.rotation.x = Math.PI / 2;
+                normalizeToUnitCube(bridge_group);
+                scene.add(bridge_group);
+            },
+        );
+
+        animate();
+    });
+
+    onDestroy(() => {
+        disposeScene(scene, renderer, animationFrameId);
+    });
 
 </script>
 
@@ -185,7 +259,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(110deg, rgba(15, 17, 18, 0.8) 40%, rgba(15, 17, 18, 0.0) 80%, rgba(15, 17, 18, 0.0));
+        background: linear-gradient(110deg, rgba(0.0, 0.0, 0.0, 0.8) 40%, rgba(15, 17, 18, 0.0) 80%, rgba(15, 17, 18, 0.0));
         z-index: -1;
     }
 

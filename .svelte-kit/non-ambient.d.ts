@@ -26,6 +26,8 @@ export {};
 
 
 declare module "$app/types" {
+	type MatcherParam<M> = M extends (param : string) => param is (infer U extends string) ? U : string;
+
 	export interface AppTypes {
 		RouteId(): "/" | "/claudecom" | "/datacom" | "/dc-packets" | "/git-safari" | "/graphics-engine" | "/hierarchy-gfx-interface" | "/memory-safety" | "/us-history-timeline";
 		RouteParams(): {
@@ -42,8 +44,8 @@ declare module "$app/types" {
 			"/memory-safety": Record<string, never>;
 			"/us-history-timeline": Record<string, never>
 		};
-		Pathname(): "/" | "/claudecom" | "/claudecom/" | "/datacom" | "/datacom/" | "/dc-packets" | "/dc-packets/" | "/git-safari" | "/git-safari/" | "/graphics-engine" | "/graphics-engine/" | "/hierarchy-gfx-interface" | "/hierarchy-gfx-interface/" | "/memory-safety" | "/memory-safety/" | "/us-history-timeline" | "/us-history-timeline/";
+		Pathname(): "/" | "/claudecom" | "/datacom" | "/dc-packets" | "/git-safari" | "/graphics-engine" | "/hierarchy-gfx-interface" | "/memory-safety" | "/us-history-timeline";
 		ResolvedPathname(): `${"" | `/${string}`}${ReturnType<AppTypes['Pathname']>}`;
-		Asset(): "/.DS_Store" | "/.nojekyll" | "/assets/git_safari.png" | "/assets/masada_test.png" | "/assets/profile_dithered.jpg" | "/favicon.ico" | string & {};
+		Asset(): "/.DS_Store" | "/.nojekyll" | "/assets/git_safari.png" | "/assets/golden_gate_bridge.obj" | "/assets/masada_test.png" | "/assets/profile_dithered.jpg" | "/assets/scene.obj" | "/assets/scene_normalized.obj" | "/assets/scene_preproc.obj" | "/favicon.ico" | string & {};
 	}
 }
