@@ -42,12 +42,17 @@ export function createBasicScene(container, options = {}) {
     const renderer = new THREE.WebGLRenderer({ antialias: true });
 
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(w, h);
+    // Pass updateStyle=false so three.js doesn't bake inline px sizes onto the canvas.
+    // CSS below handles the display size; setSize only changes the framebuffer resolution.
+    renderer.setSize(w, h, false);
     camera.up.set(0, 0, 1);
     camera.position.copy(cameraPosition);
     camera.lookAt(cameraTarget);
 
     container.appendChild(renderer.domElement);
+    renderer.domElement.style.display = 'block';
+    renderer.domElement.style.width = '100%';
+    renderer.domElement.style.height = '100%';
 
     function handleResize() {
         const { w, h } = getSize();
