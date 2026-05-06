@@ -63,8 +63,15 @@
 
         <div class="project">
             <a href="{base}/projects/tricopter-dynamics"><img src={datacom_default} alt="MultiVAC Demo"></a>
-            <a href="{base}/projects/tricopter-dynamics"><h2>Git Safari</h2></a>
-            <a href="{base}/projects/tricopter-dynamics"><h3>Subtitle</h3></a>
+            <a href="{base}/projects/tricopter-dynamics"><h2>Graphics Hierarchy</h2></a>
+            <a href="{base}/projects/tricopter-dynamics"><h3>Dependent Object Interface</h3></a>
+            <a href="{base}/projects/tricopter-dynamics"><p>Brief Description Lorem Ipsum </p></a>
+        </div>
+
+        <div class="project">
+            <a href="{base}/projects/tricopter-dynamics"><img src={datacom_default} alt="MultiVAC Demo"></a>
+            <a href="{base}/projects/tricopter-dynamics"><h2>DATACOM Video Rendering</h2></a>
+            <a href="{base}/projects/tricopter-dynamics"><h3>Video Rendering Interface</h3></a>
             <a href="{base}/projects/tricopter-dynamics"><p>Brief Description Lorem Ipsum </p></a>
         </div>
 

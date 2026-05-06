@@ -630,7 +630,7 @@
     .edu-right { text-align: left; }
   }
 </style>
-
+<Header/>
 <Landing/>
 <About/>
 <ProjectHighlights/>
