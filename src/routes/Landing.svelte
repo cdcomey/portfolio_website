@@ -45,24 +45,177 @@
         5.28, 1.74, 4.36, 0.42, 2.61, 5.05, 1.09, 3.91, 5.71, 2.33
     ];
 
+
+    // const waterColor = '#0c2a4a';
+    const waterColor = '#2F2B64';
+
+    const waterRimColor = '#2F2B64';
+    const waterSize = 4.0;
+    const waterSegments = 128;
+    const waterAltitude = -0.06;
+    const waterAmplitude = 0.002;
+    const waterWaveX = 12.1;
+    const waterWaveY = 15.5;
+    const waterTimeFreqX = 0.15;
+    const waterTimeFreqY = 0.1;
+    // Fresnel rim params (formula matches FresnelRimMaterial in three-utils.js)
+    const waterRimBias = 0.4;
+    const waterRimScale = 1.0;
+    const waterRimPower = 0.2;
+    const waterRimWidth = 0.35;
+    const waterRimCurve = 1.5;
+    const waterRimIntensity = 0.6;
+    // Crest brightening (height-based, independent of view angle)
+    const waterPeakColor = '#4CAAC2';
+    const waterPeakIntensity = 0.7;
+    // Wireframe overlay drawn as a second pass over the same displaced surface
+    const waterWireColor = '#3a6aa0';
+
     onMount(() => {
         const sceneSetup = createBasicScene(container, {
             fov: 30,
             cameraPosition: new THREE.Vector3(0.2, 0.4, 0.03),
+            // cameraPosition: new THREE.Vector3(1.0, 0.0, 0.00),
             cameraTarget: new THREE.Vector3(0, 0, 0),
             useContainerSize: true
         });
         scene = sceneSetup.scene;
         camera = sceneSetup.camera;
         renderer = sceneSetup.renderer;
+        scene.background = new THREE.Color('#000000');
 
         const loader = new OBJLoader();
         const clock = new THREE.Clock();
         const clouds = [];
+        let elapsedTime = 0;
+
+        const waterMaterial = new THREE.ShaderMaterial({
+            uniforms: {
+                uTime: { value: 0 },
+                uBaseColor: { value: new THREE.Color(waterColor) },
+                uRim: { value: new THREE.Color(waterRimColor) },
+                uPeak: { value: new THREE.Color(waterPeakColor) },
+                uPeakInt: { value: waterPeakIntensity },
+                uAmp: { value: waterAmplitude },
+                uWaveX: { value: waterWaveX },
+                uWaveY: { value: waterWaveY },
+                uTfx: { value: waterTimeFreqX },
+                uTfy: { value: waterTimeFreqY },
+                uBias: { value: waterRimBias },
+                uScale: { value: waterRimScale },
+                uPower: { value: waterRimPower },
+                uWidth: { value: waterRimWidth },
+                uCurve: { value: waterRimCurve },
+                uInt: { value: waterRimIntensity }
+            },
+            vertexShader: /* glsl */`
+                uniform float uTime;
+                uniform float uAmp, uWaveX, uWaveY, uTfx, uTfy;
+                varying vec3 vWPos;
+                varying vec3 vWNorm;
+                varying float vDisp;
+                void main() {
+                    vec3 pos = position;
+                    float phaseX = pos.x * uWaveX + uTime * uTfx;
+                    float phaseY = pos.y * uWaveY + uTime * uTfy;
+                    float disp = uAmp * (sin(phaseX) + cos(phaseY));
+                    pos.z += disp;
+
+                    // Analytic surface normal from the wave gradient
+                    // z(x,y) = uAmp * (sin(phaseX) + cos(phaseY))
+                    // dz/dx =  uAmp * uWaveX *  cos(phaseX)
+                    // dz/dy = -uAmp * uWaveY *  sin(phaseY)
+                    float dzdx =  uAmp * uWaveX * cos(phaseX);
+                    float dzdy = -uAmp * uWaveY * sin(phaseY);
+                    vec3 nLocal = normalize(vec3(-dzdx, -dzdy, 1.0));
+
+                    vec4 wp = modelMatrix * vec4(pos, 1.0);
+                    vWPos = wp.xyz;
+                    vWNorm = normalize(mat3(transpose(inverse(modelMatrix))) * nLocal);
+                    vDisp = disp;
+                    gl_Position = projectionMatrix * viewMatrix * wp;
+                }
+            `,
+            // Fresnel rim from three-utils.js FresnelRimMaterial, layered additively over the base color,
+            // plus a height-based crest brightening that lights up the actual peaks of the wave.
+            fragmentShader: /* glsl */`
+                uniform vec3 uBaseColor, uRim, uPeak;
+                uniform float uBias, uScale, uPower, uWidth, uCurve, uInt, uPeakInt, uAmp;
+                varying vec3 vWPos, vWNorm;
+                varying float vDisp;
+                void main() {
+                    vec3 N = normalize(vWNorm);
+                    vec3 V = normalize(cameraPosition - vWPos);
+                    float dotNV = clamp(dot(N, V), 0.0, 1.0);
+
+                    float fres = uBias + uScale * pow(1.0 - dotNV, uPower);
+
+                    float x = 1.0 - dotNV;
+                    float rim = smoothstep(1.0 - uWidth, 1.0, x);
+                    rim = pow(rim * fres, uCurve);
+
+                    // Crest highlight: vDisp ranges roughly [-2*uAmp, +2*uAmp];
+                    // smoothstep lights only the upper half of crests.
+                    float crest = smoothstep(uAmp * 0.5, uAmp * 1.6, vDisp);
+
+                    vec3 col = uBaseColor
+                             + uRim  * rim   * uInt
+                             + uPeak * crest * uPeakInt;
+                    gl_FragColor = vec4(col, 1.0);
+                }
+            `,
+            side: THREE.DoubleSide,
+            polygonOffset: true,
+            polygonOffsetFactor: 1,
+            polygonOffsetUnits: 1
+        });
+
+        const waterWireMaterial = new THREE.ShaderMaterial({
+            uniforms: {
+                uTime: { value: 0 },
+                uColor: { value: new THREE.Color(waterWireColor) },
+                uAmp: { value: waterAmplitude },
+                uWaveX: { value: waterWaveX },
+                uWaveY: { value: waterWaveY },
+                uTfx: { value: waterTimeFreqX },
+                uTfy: { value: waterTimeFreqY }
+            },
+            vertexShader: /* glsl */`
+                uniform float uTime;
+                uniform float uAmp, uWaveX, uWaveY, uTfx, uTfy;
+                void main() {
+                    vec3 pos = position;
+                    pos.z += uAmp * (sin(pos.x * uWaveX + uTime * uTfx)
+                                   + cos(pos.y * uWaveY + uTime * uTfy));
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+                }
+            `,
+            fragmentShader: /* glsl */`
+                uniform vec3 uColor;
+                void main() {
+                    gl_FragColor = vec4(uColor, 1.0);
+                }
+            `,
+            wireframe: true
+        });
+
+        const waterGeometry = new THREE.PlaneGeometry(
+            waterSize, waterSize, waterSegments, waterSegments
+        );
+        const water = new THREE.Mesh(waterGeometry, waterMaterial);
+        water.position.z = waterAltitude;
+        scene.add(water);
+
+        const waterWire = new THREE.Mesh(waterGeometry, waterWireMaterial);
+        waterWire.position.z = waterAltitude;
+        scene.add(waterWire);
 
         function animate() {
             animationFrameId = requestAnimationFrame(animate);
             const dt = clock.getDelta();
+            elapsedTime += dt;
+            waterMaterial.uniforms.uTime.value = elapsedTime;
+            waterWireMaterial.uniforms.uTime.value = elapsedTime;
             for (const c of clouds) {
                 c.angle += (cloudLinearSpeed / c.radius) * dt;
                 c.group.position.set(
@@ -272,8 +425,8 @@
         min-height: 90vh;
         text-align: center;
         justify-content: space-between;
-        background: #000000;      
-        overflow: hidden;        
+        background: #87CEEB;
+        overflow: hidden;
         z-index: 0;
         position: relative;
         top: 0;
@@ -351,8 +504,8 @@
         justify-content: space-between;
         /* background: linear-gradient(to left, rgba(32,39,49,0) 80%,
               rgba(32,39,49,1)), url(http://foo.com/image.jpg); */
-        background: #000000;      
-        overflow: hidden;        
+        background: #87CEEB;
+        overflow: hidden;
         /* font-variant: small-caps; */
         z-index: 0;
         position: relative;
