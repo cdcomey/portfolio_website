@@ -22,7 +22,7 @@
     const CLOUD_COUNT = 30;
     const cloudOrbitCenter = new THREE.Vector3(0, 0, 0);
     const cloudBaseAltitude = 0.20;
-    const cloudLinearSpeed = 0.01;
+    const cloudLinearSpeed = 0.002;
     const cloudScale = 0.08;
     const cloudRadii = [
         0.45, 0.72, 0.58, 0.88, 0.63, 0.78, 0.51, 0.95, 0.67, 0.82,
@@ -47,9 +47,9 @@
 
 
     // const waterColor = '#0c2a4a';
-    const waterColor = '#2F2B64';
+    const waterColor = '#07062e';
 
-    const waterRimColor = '#2F2B64';
+    const waterRimColor = '#4CAAC2';
     const waterSize = 4.0;
     const waterSegments = 128;
     const waterAltitude = -0.06;
@@ -59,15 +59,16 @@
     const waterTimeFreqX = 0.15;
     const waterTimeFreqY = 0.1;
     // Fresnel rim params (formula matches FresnelRimMaterial in three-utils.js)
-    const waterRimBias = 0.4;
+    const waterRimBias = 0.0;
     const waterRimScale = 1.0;
-    const waterRimPower = 0.2;
+    const waterRimPower = 10.0;
     const waterRimWidth = 0.35;
     const waterRimCurve = 1.5;
-    const waterRimIntensity = 0.6;
-    // Crest brightening (height-based, independent of view angle)
+    const waterRimIntensity = 0.1;
+    // Peak glow — a second, sharper fresnel pass; higher power = tighter highlight on grazing slopes
     const waterPeakColor = '#4CAAC2';
     const waterPeakIntensity = 0.7;
+    const waterPeakPower = 16.0;
     // Wireframe overlay drawn as a second pass over the same displaced surface
     const waterWireColor = '#3a6aa0';
 
@@ -96,6 +97,7 @@
                 uRim: { value: new THREE.Color(waterRimColor) },
                 uPeak: { value: new THREE.Color(waterPeakColor) },
                 uPeakInt: { value: waterPeakIntensity },
+                uPeakPower: { value: waterPeakPower },
                 uAmp: { value: waterAmplitude },
                 uWaveX: { value: waterWaveX },
                 uWaveY: { value: waterWaveY },
@@ -113,7 +115,6 @@
                 uniform float uAmp, uWaveX, uWaveY, uTfx, uTfy;
                 varying vec3 vWPos;
                 varying vec3 vWNorm;
-                varying float vDisp;
                 void main() {
                     vec3 pos = position;
                     float phaseX = pos.x * uWaveX + uTime * uTfx;
@@ -132,35 +133,35 @@
                     vec4 wp = modelMatrix * vec4(pos, 1.0);
                     vWPos = wp.xyz;
                     vWNorm = normalize(mat3(transpose(inverse(modelMatrix))) * nLocal);
-                    vDisp = disp;
                     gl_Position = projectionMatrix * viewMatrix * wp;
                 }
             `,
-            // Fresnel rim from three-utils.js FresnelRimMaterial, layered additively over the base color,
-            // plus a height-based crest brightening that lights up the actual peaks of the wave.
+            // Two fresnel passes layered over the base color:
+            //   uRim  — the soft, wide rim (matches FresnelRimMaterial in three-utils.js)
+            //   uPeak — a sharper, tighter fresnel using uPeakPower; produces the wave-crest glow
+            //           because crests slope away from the camera most steeply.
             fragmentShader: /* glsl */`
                 uniform vec3 uBaseColor, uRim, uPeak;
-                uniform float uBias, uScale, uPower, uWidth, uCurve, uInt, uPeakInt, uAmp;
+                uniform float uBias, uScale, uPower, uWidth, uCurve, uInt;
+                uniform float uPeakInt, uPeakPower;
                 varying vec3 vWPos, vWNorm;
-                varying float vDisp;
                 void main() {
                     vec3 N = normalize(vWNorm);
                     vec3 V = normalize(cameraPosition - vWPos);
                     float dotNV = clamp(dot(N, V), 0.0, 1.0);
-
-                    float fres = uBias + uScale * pow(1.0 - dotNV, uPower);
-
                     float x = 1.0 - dotNV;
+
+                    // Soft fresnel rim
+                    float fres = uBias + uScale * pow(x, uPower);
                     float rim = smoothstep(1.0 - uWidth, 1.0, x);
                     rim = pow(rim * fres, uCurve);
 
-                    // Crest highlight: vDisp ranges roughly [-2*uAmp, +2*uAmp];
-                    // smoothstep lights only the upper half of crests.
-                    float crest = smoothstep(uAmp * 0.5, uAmp * 1.6, vDisp);
+                    // Sharp fresnel glow — concentrates on the most grazing slopes (wave peaks)
+                    float glow = pow(x, uPeakPower);
 
                     vec3 col = uBaseColor
-                             + uRim  * rim   * uInt
-                             + uPeak * crest * uPeakInt;
+                             + uRim  * rim  * uInt
+                             + uPeak * glow * uPeakInt;
                     gl_FragColor = vec4(col, 1.0);
                 }
             `,
