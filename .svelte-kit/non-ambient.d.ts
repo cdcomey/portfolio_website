@@ -46,6 +46,6 @@ declare module "$app/types" {
 		};
 		Pathname(): "/" | "/claudecom" | "/datacom" | "/dc-packets" | "/git-safari" | "/graphics-engine" | "/hierarchy-gfx-interface" | "/memory-safety" | "/us-history-timeline";
 		ResolvedPathname(): `${"" | `/${string}`}${ReturnType<AppTypes['Pathname']>}`;
-		Asset(): "/.DS_Store" | "/.nojekyll" | "/assets/git_safari.png" | "/assets/golden_gate_bridge.obj" | "/assets/masada_test.png" | "/assets/profile_dithered.jpg" | "/assets/scene.obj" | "/assets/scene_normalized.obj" | "/assets/scene_preproc.obj" | "/favicon.ico" | string & {};
+		Asset(): "/.DS_Store" | "/.nojekyll" | "/assets/git_safari.png" | "/assets/golden_gate_bridge.obj" | "/assets/masada_test.png" | "/assets/profile_dithered.jpg" | "/favicon.ico" | string & {};
 	}
 }
