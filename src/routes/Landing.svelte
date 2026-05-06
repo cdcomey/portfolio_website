@@ -19,21 +19,212 @@
     let container;
     let scene, camera, renderer, animationFrameId;
 
+    const CLOUD_COUNT = 30;
+    const cloudOrbitCenter = new THREE.Vector3(0, 0, 0);
+    const cloudBaseAltitude = 0.20;
+    const cloudLinearSpeed = 0.002;
+    const cloudScale = 0.08;
+    const cloudRadii = [
+        0.45, 0.72, 0.58, 0.88, 0.63, 0.78, 0.51, 0.95, 0.67, 0.82,
+        0.49, 0.86, 0.61, 0.74, 0.92, 0.54, 0.69, 0.81, 0.57, 0.90,
+        0.66, 0.43, 0.79, 0.84, 0.62, 0.97, 0.53, 0.71, 0.87, 0.60
+    ];
+    const cloudInitialAngles = [
+        0.12, 0.85, 1.41, 2.07, 2.93, 3.31, 3.97, 4.62, 5.18, 5.84,
+        0.41, 1.13, 1.78, 2.34, 2.71, 3.58, 4.21, 4.85, 5.42, 6.07,
+        0.27, 0.96, 1.55, 2.22, 3.04, 3.79, 4.43, 5.05, 5.71, 6.21
+    ];
+    const cloudAltitudes = [
+        0.04, -0.02, 0.07, -0.05, 0.01, 0.06, -0.03, 0.03, -0.06, 0.05,
+       -0.04, 0.02, -0.07, 0.05, -0.01, -0.06, 0.03, -0.03, 0.06, -0.05,
+        0.08, -0.08, 0.02, -0.04, 0.07, -0.07, 0.04, -0.02, 0.05, -0.05
+    ];
+    const cloudOrientations = [
+        0.31, 1.92, 4.71, 0.84, 3.27, 5.62, 2.18, 0.05, 4.13, 1.47,
+        2.85, 5.94, 0.66, 3.78, 1.21, 4.55, 2.49, 6.02, 0.97, 3.42,
+        5.28, 1.74, 4.36, 0.42, 2.61, 5.05, 1.09, 3.91, 5.71, 2.33
+    ];
+
+
+    // const waterColor = '#0c2a4a';
+    const waterColor = '#07062e';
+
+    const waterRimColor = '#4CAAC2';
+    const waterSize = 4.0;
+    const waterSegments = 128;
+    const waterAltitude = -0.06;
+    const waterAmplitude = 0.002;
+    const waterWaveX = 12.1;
+    const waterWaveY = 15.5;
+    const waterTimeFreqX = 0.15;
+    const waterTimeFreqY = 0.1;
+    // Fresnel rim params (formula matches FresnelRimMaterial in three-utils.js)
+    const waterRimBias = 0.0;
+    const waterRimScale = 1.0;
+    const waterRimPower = 10.0;
+    const waterRimWidth = 0.35;
+    const waterRimCurve = 1.5;
+    const waterRimIntensity = 0.1;
+    // Peak glow — a second, sharper fresnel pass; higher power = tighter highlight on grazing slopes
+    const waterPeakColor = '#4CAAC2';
+    const waterPeakIntensity = 0.7;
+    const waterPeakPower = 16.0;
+    // Wireframe overlay drawn as a second pass over the same displaced surface
+    const waterWireColor = '#3a6aa0';
+
     onMount(() => {
         const sceneSetup = createBasicScene(container, {
             fov: 30,
             cameraPosition: new THREE.Vector3(0.2, 0.4, 0.03),
+            // cameraPosition: new THREE.Vector3(1.0, 0.0, 0.00),
             cameraTarget: new THREE.Vector3(0, 0, 0),
             useContainerSize: true
         });
         scene = sceneSetup.scene;
         camera = sceneSetup.camera;
         renderer = sceneSetup.renderer;
+        scene.background = new THREE.Color('#000000');
 
         const loader = new OBJLoader();
+        const clock = new THREE.Clock();
+        const clouds = [];
+        let elapsedTime = 0;
+
+        const waterMaterial = new THREE.ShaderMaterial({
+            uniforms: {
+                uTime: { value: 0 },
+                uBaseColor: { value: new THREE.Color(waterColor) },
+                uRim: { value: new THREE.Color(waterRimColor) },
+                uPeak: { value: new THREE.Color(waterPeakColor) },
+                uPeakInt: { value: waterPeakIntensity },
+                uPeakPower: { value: waterPeakPower },
+                uAmp: { value: waterAmplitude },
+                uWaveX: { value: waterWaveX },
+                uWaveY: { value: waterWaveY },
+                uTfx: { value: waterTimeFreqX },
+                uTfy: { value: waterTimeFreqY },
+                uBias: { value: waterRimBias },
+                uScale: { value: waterRimScale },
+                uPower: { value: waterRimPower },
+                uWidth: { value: waterRimWidth },
+                uCurve: { value: waterRimCurve },
+                uInt: { value: waterRimIntensity }
+            },
+            vertexShader: /* glsl */`
+                uniform float uTime;
+                uniform float uAmp, uWaveX, uWaveY, uTfx, uTfy;
+                varying vec3 vWPos;
+                varying vec3 vWNorm;
+                void main() {
+                    vec3 pos = position;
+                    float phaseX = pos.x * uWaveX + uTime * uTfx;
+                    float phaseY = pos.y * uWaveY + uTime * uTfy;
+                    float disp = uAmp * (sin(phaseX) + cos(phaseY));
+                    pos.z += disp;
+
+                    // Analytic surface normal from the wave gradient
+                    // z(x,y) = uAmp * (sin(phaseX) + cos(phaseY))
+                    // dz/dx =  uAmp * uWaveX *  cos(phaseX)
+                    // dz/dy = -uAmp * uWaveY *  sin(phaseY)
+                    float dzdx =  uAmp * uWaveX * cos(phaseX);
+                    float dzdy = -uAmp * uWaveY * sin(phaseY);
+                    vec3 nLocal = normalize(vec3(-dzdx, -dzdy, 1.0));
+
+                    vec4 wp = modelMatrix * vec4(pos, 1.0);
+                    vWPos = wp.xyz;
+                    vWNorm = normalize(mat3(transpose(inverse(modelMatrix))) * nLocal);
+                    gl_Position = projectionMatrix * viewMatrix * wp;
+                }
+            `,
+            // Two fresnel passes layered over the base color:
+            //   uRim  — the soft, wide rim (matches FresnelRimMaterial in three-utils.js)
+            //   uPeak — a sharper, tighter fresnel using uPeakPower; produces the wave-crest glow
+            //           because crests slope away from the camera most steeply.
+            fragmentShader: /* glsl */`
+                uniform vec3 uBaseColor, uRim, uPeak;
+                uniform float uBias, uScale, uPower, uWidth, uCurve, uInt;
+                uniform float uPeakInt, uPeakPower;
+                varying vec3 vWPos, vWNorm;
+                void main() {
+                    vec3 N = normalize(vWNorm);
+                    vec3 V = normalize(cameraPosition - vWPos);
+                    float dotNV = clamp(dot(N, V), 0.0, 1.0);
+                    float x = 1.0 - dotNV;
+
+                    // Soft fresnel rim
+                    float fres = uBias + uScale * pow(x, uPower);
+                    float rim = smoothstep(1.0 - uWidth, 1.0, x);
+                    rim = pow(rim * fres, uCurve);
+
+                    // Sharp fresnel glow — concentrates on the most grazing slopes (wave peaks)
+                    float glow = pow(x, uPeakPower);
+
+                    vec3 col = uBaseColor
+                             + uRim  * rim  * uInt
+                             + uPeak * glow * uPeakInt;
+                    gl_FragColor = vec4(col, 1.0);
+                }
+            `,
+            side: THREE.DoubleSide,
+            polygonOffset: true,
+            polygonOffsetFactor: 1,
+            polygonOffsetUnits: 1
+        });
+
+        const waterWireMaterial = new THREE.ShaderMaterial({
+            uniforms: {
+                uTime: { value: 0 },
+                uColor: { value: new THREE.Color(waterWireColor) },
+                uAmp: { value: waterAmplitude },
+                uWaveX: { value: waterWaveX },
+                uWaveY: { value: waterWaveY },
+                uTfx: { value: waterTimeFreqX },
+                uTfy: { value: waterTimeFreqY }
+            },
+            vertexShader: /* glsl */`
+                uniform float uTime;
+                uniform float uAmp, uWaveX, uWaveY, uTfx, uTfy;
+                void main() {
+                    vec3 pos = position;
+                    pos.z += uAmp * (sin(pos.x * uWaveX + uTime * uTfx)
+                                   + cos(pos.y * uWaveY + uTime * uTfy));
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+                }
+            `,
+            fragmentShader: /* glsl */`
+                uniform vec3 uColor;
+                void main() {
+                    gl_FragColor = vec4(uColor, 1.0);
+                }
+            `,
+            wireframe: true
+        });
+
+        const waterGeometry = new THREE.PlaneGeometry(
+            waterSize, waterSize, waterSegments, waterSegments
+        );
+        const water = new THREE.Mesh(waterGeometry, waterMaterial);
+        water.position.z = waterAltitude;
+        scene.add(water);
+
+        const waterWire = new THREE.Mesh(waterGeometry, waterWireMaterial);
+        waterWire.position.z = waterAltitude;
+        scene.add(waterWire);
 
         function animate() {
             animationFrameId = requestAnimationFrame(animate);
+            const dt = clock.getDelta();
+            elapsedTime += dt;
+            waterMaterial.uniforms.uTime.value = elapsedTime;
+            waterWireMaterial.uniforms.uTime.value = elapsedTime;
+            for (const c of clouds) {
+                c.angle += (cloudLinearSpeed / c.radius) * dt;
+                c.group.position.set(
+                    cloudOrbitCenter.x + Math.cos(c.angle) * c.radius,
+                    cloudOrbitCenter.y + Math.sin(c.angle) * c.radius,
+                    cloudOrbitCenter.z + cloudBaseAltitude + c.altitude
+                );
+            }
             renderer.render(scene, camera);
         }
 
@@ -64,6 +255,39 @@
                 bridge_group.rotation.x = Math.PI / 2;
                 normalizeToUnitCube(bridge_group);
                 scene.add(bridge_group);
+            },
+        );
+
+        loader.load(
+            `${base}/assets/cloud_reduced.obj`,
+            function(cloud_obj) {
+                const cloudMaterials = createFresnelMaterials(new THREE.Color('#ffffff'));
+
+                const cloudTemplate = new THREE.Group();
+                cloud_obj.traverse((child) => {
+                    if (child instanceof THREE.Mesh) {
+                        cloudTemplate.add(createWireframeFresnelMesh(child.geometry, cloudMaterials));
+                    }
+                });
+                normalizeToUnitCube(cloudTemplate);
+
+                for (let i = 0; i < CLOUD_COUNT; i++) {
+                    const instance = cloudTemplate.clone(true);
+                    instance.scale.multiplyScalar(cloudScale);
+                    instance.rotation.z = cloudOrientations[i];
+
+                    const radius = cloudRadii[i];
+                    const angle = cloudInitialAngles[i];
+                    const altitude = cloudAltitudes[i];
+                    instance.position.set(
+                        cloudOrbitCenter.x + Math.cos(angle) * radius,
+                        cloudOrbitCenter.y + Math.sin(angle) * radius,
+                        cloudOrbitCenter.z + cloudBaseAltitude + altitude
+                    );
+
+                    scene.add(instance);
+                    clouds.push({ group: instance, radius, angle, altitude });
+                }
             },
         );
 
@@ -202,8 +426,8 @@
         min-height: 90vh;
         text-align: center;
         justify-content: space-between;
-        background: #000000;      
-        overflow: hidden;        
+        background: #87CEEB;
+        overflow: hidden;
         z-index: 0;
         position: relative;
         top: 0;
@@ -281,8 +505,8 @@
         justify-content: space-between;
         /* background: linear-gradient(to left, rgba(32,39,49,0) 80%,
               rgba(32,39,49,1)), url(http://foo.com/image.jpg); */
-        background: #000000;      
-        overflow: hidden;        
+        background: #87CEEB;
+        overflow: hidden;
         /* font-variant: small-caps; */
         z-index: 0;
         position: relative;
