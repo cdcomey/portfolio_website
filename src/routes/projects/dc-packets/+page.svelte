@@ -1,6 +1,6 @@
 <script>
     import { base } from '$app/paths';
-    // import Header from '../../Header.svelte';
+    import Header from '../../Header.svelte';
     import ProjectSection from '$lib/ProjectSection.svelte';
     import ProjectSectionBigPic from '$lib/ProjectSectionBigPic.svelte';
 
@@ -8,7 +8,7 @@
     const proc_diag = `${base}/assets/datacom_process_diag_black.png`;
 </script>
 
-<!-- <Header></Header> -->
+<Header></Header>
 
 <section class="high-level-description centered">
 

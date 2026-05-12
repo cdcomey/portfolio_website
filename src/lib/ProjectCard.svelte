@@ -29,7 +29,9 @@
     justify-content: flex-start;
     flex-direction: column;
     text-align: center;
-    background-color: #22272b;
+    /* background-color: #22272b; */
+    border-color: #FFFFFF40;
+    border-style: solid;
   }
 
   img {
@@ -40,6 +42,7 @@
     background-color: #000000;
 
   }
+
 
   /* TEST */
   /* .project {
@@ -73,6 +76,7 @@
     color: #FFFFFF;
     text-decoration: none;
   }
+  
 
   a:hover {
     text-decoration: none;
