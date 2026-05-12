@@ -18,14 +18,14 @@ export const server_loads = [];
 
 export const dictionary = {
 		"/": [2],
-		"/claudecom": [3],
-		"/datacom": [4],
-		"/dc-packets": [5],
-		"/git-safari": [6],
-		"/graphics-engine": [7],
-		"/hierarchy-gfx-interface": [8],
-		"/memory-safety": [9],
-		"/us-history-timeline": [10]
+		"/projects/claudecom": [3],
+		"/projects/datacom": [4],
+		"/projects/dc-packets": [5],
+		"/projects/git-safari": [6],
+		"/projects/graphics-engine": [7],
+		"/projects/hierarchy-gfx-interface": [8],
+		"/projects/memory-safety": [9],
+		"/projects/us-history-timeline": [10]
 	};
 
 export const hooks = {

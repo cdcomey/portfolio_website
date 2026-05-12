@@ -1,10 +1,13 @@
 <script>
     import { base } from '$app/paths';
     import ProjectCard from '$lib/ProjectCard.svelte';
+    // import Header from '../../Header.svelte';
     const gsf = `${base}/assets/git_safari.png`;
     const datacom_default = `${base}/assets/masada_test.png`;
+    const proc_diag = `${base}/assets/datacom_process_diag_black.png`;
 </script>
 
+<!-- <Header/> -->
 <section id="misc-projects" class="dark centered">
     <h1>Project Gallery</h1>
 
@@ -12,68 +15,76 @@
 
     <div class="project-grid">
 
-        <div class="project">
+        <!-- <div class="project">
             <a href="{base}/"><img src={gsf} alt="MultiVAC Demo"></a>
             <a href="{base}/"><h2>Git Safari</h2></a>
             <a href="{base}/"><h3>UrbEx For Programmers</h3></a>
             <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
-        </div>
+        </div> -->
 
-        <div class="project">
-            <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
-            <a href="{base}/"><h2>DATACOM</h2></a>
-            <a href="{base}/"><h3>Subtitle</h3></a>
-            <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
-        </div>
+        <!-- <div class="project">
+            <a href="{base}/projects/datacom"><img src={datacom_default} alt="MultiVAC Demo"></a>
+            <a href="{base}/projects/datacom"><h2>DATACOM</h2></a>
+            <a href="{base}/projects/datacom"><h3>Subtitle</h3></a>
+            <a href="{base}/projects/datacom"><p>Brief Description Lorem Ipsum </p></a>
+        </div> -->
 
-        <div class="project">
+        <!-- <div class="project">
             <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
             <a href="{base}/"><h2>CLAUDECOM</h2></a>
             <a href="{base}/"><h3>DATACOM Integration with Claude</h3></a>
             <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
-        </div>
+        </div> -->
 
-        <div class="project">
+        <!-- <div class="project">
             <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
             <a href="{base}/"><h2>Memory Safety across Large Networks</h2></a>
             <a href="{base}/"><h3>Subtitle</h3></a>
             <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
-        </div>
+        </div> -->
 
-        <div class="project">
-            <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
-            <a href="{base}/"><h2>DATACOM Packet Interface</h2></a>
-            <a href="{base}/"><h3>Subtitle</h3></a>
-            <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
-        </div>
+        <ProjectCard
+            href="{base}/projects/dc-packets"
+            imageSrc={proc_diag}
+            title="DATACOM Packet Interface"
+            subtitle="Asynchronous Networked Graphics Interface"
+            description="Custom data packet protocol for transmitting asynchronous graphical information over network"
+        />
 
-        <div class="project">
+        <!-- <div class="project">
+            <a href="{base}/projects/dc-packets"><img src={proc_diag} alt="MultiVAC Demo"></a>
+            <a href="{base}/projects/dc-packets"><h2>DATACOM Packet Interface</h2></a>
+            <a href="{base}/projects/dc-packets"><h3>Asynchronous Networked Graphics Interface</h3></a>
+            <a href="{base}/projects/dc-packets"><p>Custom data packet protocol for transmitting asynchronous graphical information over network </p></a>
+        </div> -->
+
+        <!-- <div class="project">
             <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
             <a href="{base}/"><h2>US History Timeline</h2></a>
             <a href="{base}/"><h3>Interactive Educational Tool</h3></a>
             <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
-        </div>
+        </div> -->
 
-        <div class="project">
+        <!-- <div class="project">
             <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
             <a href="{base}/"><h2> DATACOM Graphics Engine </h2></a>
             <a href="{base}/"><h3>Mutlicamera Setup and Recording</h3></a>
             <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
-        </div>
+        </div> -->
 
-        <div class="project">
+        <!-- <div class="project">
             <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
             <a href="{base}/"><h2>Graphics Hierarchy</h2></a>
             <a href="{base}/"><h3>Dependent Object Interface</h3></a>
             <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
-        </div>
+        </div> -->
 
-        <div class="project">
+        <!-- <div class="project">
             <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
             <a href="{base}/"><h2>DATACOM Video Rendering</h2></a>
             <a href="{base}/"><h3>Video Rendering Interface</h3></a>
             <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
-        </div>
+        </div> -->
 
 
         

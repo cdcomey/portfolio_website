@@ -631,4 +631,4 @@
 <Landing/>
 <About/>
 <ProjectHighlights/>
-<!-- <ProjectGallery/> -->
+<ProjectGallery/>
