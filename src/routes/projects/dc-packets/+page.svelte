@@ -14,11 +14,11 @@
 
     <ProjectSectionBigPic>
         <div slot="description">
-            <h1>DATACOM</h1>
+            <h1>DATACOM Packet Protocol</h1>
             <!-- <h3>Visual Command and Control Terminal for Air and Space</h3>
             <h4>Ongoing</h4> -->
             <hr width="100%">
-            <p>DATACOM uses a simple graphics engine, but don't let that fool you. Under the hood, it has a surprisingly robust signal routing system that allows bidirectional data transmission and display across multiple sources simulatneously while remaining snappy for the user.</p>
+            <p>DATACOM uses a simple graphics engine, but don't let that fool you. Under the hood, it has a surprisingly robust signal routing system that allows bidirectional data transmission and display across multiple sources simultaneously while remaining snappy for the user.</p>
             <br>
             <p>First, the client attempts to connect to one or more TCP streams. It fetches a list of acceptable ports from a config file, then attempts to connect to each one until a time limit is reached. This allows it to connect to multiple streams simultaneously, which are all stored in a vector.</p>
             <br>
