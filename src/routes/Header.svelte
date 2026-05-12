@@ -1,20 +1,20 @@
 <script>
     import { base } from '$app/paths';
 </script>
-<!-- 
+
 <header class="bg-blue-500 text-white p-4">
 
             <nav>
                 <ul>
                   <li><a href="{base}/">Home</a></li>
-                  <li><a href="{base}/about">About</a></li>
-                  <li><a href="{base}/projects">Projects</a></li>
+                  <!-- <li><a href="{base}/about">About</a></li> -->
+                  <!-- <li><a href="{base}/projects">Projects</a></li> -->
                   <li><a href="https://www.linkedin.com/in/charles-comey-336297326/">LinkedIn</a></li>
                   <li><a href="https://github.com/cdcomey">GitHub</a></li>
                 </ul>
               </nav>
 
-</header> -->
+</header>
 
 <style>
 

@@ -20,10 +20,10 @@
         </div>
 
         <div class="project">
-            <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
-            <a href="{base}/"><h2>DATACOM</h2></a>
-            <a href="{base}/"><h3>Subtitle</h3></a>
-            <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
+            <a href="{base}/projects/datacom"><img src={datacom_default} alt="MultiVAC Demo"></a>
+            <a href="{base}/projects/datacom"><h2>DATACOM</h2></a>
+            <a href="{base}/projects/datacom"><h3>Subtitle</h3></a>
+            <a href="{base}/projects/datacom"><p>Brief Description Lorem Ipsum </p></a>
         </div>
 
         <div class="project">
@@ -41,10 +41,10 @@
         </div>
 
         <div class="project">
-            <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
-            <a href="{base}/"><h2>DATACOM Packet Interface</h2></a>
-            <a href="{base}/"><h3>Subtitle</h3></a>
-            <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
+            <a href="{base}/projects/dc-packets"><img src={datacom_default} alt="MultiVAC Demo"></a>
+            <a href="{base}/projects/dc-packets"><h2>DATACOM Packet Interface</h2></a>
+            <a href="{base}/projects/dc-packets"><h3>Subtitle</h3></a>
+            <a href="{base}/projects/dc-packets"><p>Brief Description Lorem Ipsum </p></a>
         </div>
 
         <div class="project">

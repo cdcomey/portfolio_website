@@ -11,7 +11,7 @@ type EnsureDefined<T> = T extends null | undefined ? {} : T;
 type OptionalUnion<U extends Record<string, any>, A extends keyof U = U extends U ? keyof U : never> = U extends unknown ? { [P in Exclude<A, keyof U>]?: never } & U : never;
 export type Snapshot<T = any> = Kit.Snapshot<T>;
 type PageParentData = EnsureDefined<LayoutData>;
-type LayoutRouteId = RouteId | "/" | "/claudecom" | "/datacom" | "/dc-packets" | "/git-safari" | "/graphics-engine" | "/hierarchy-gfx-interface" | "/memory-safety" | "/us-history-timeline" | null
+type LayoutRouteId = RouteId | "/" | "/projects/claudecom" | "/projects/datacom" | "/projects/dc-packets" | "/projects/git-safari" | "/projects/graphics-engine" | "/projects/hierarchy-gfx-interface" | "/projects/memory-safety" | "/projects/us-history-timeline" | null
 type LayoutParams = RouteParams & {  }
 type LayoutParentData = EnsureDefined<{}>;
 
