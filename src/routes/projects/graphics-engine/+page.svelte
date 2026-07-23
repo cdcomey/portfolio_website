@@ -4,8 +4,8 @@
     import ProjectSection from '$lib/ProjectSection.svelte';
     import ProjectSectionBigPic from '$lib/ProjectSectionBigPic.svelte';
 
-    const masada = `${base}/assets/masada_test.png`;
-    const proc_diag = `${base}/assets/datacom_process_diag_black.png`;
+    const cubes = `${base}/assets/cubes.mp4`;
+    const bridge = `${base}/assets/bridge.mp4`;
 </script>
 
 <Header></Header>
@@ -36,12 +36,12 @@
             
         </div>
         <div slot="image">
-            <img loading="lazy" src={proc_diag} alt="DATACOM Test">
+            <video loading="lazy" src={bridge} autoplay loop muted playsinline></video>
         </div>
     </ProjectSectionBigPic>
 
 
-    <ProjectSection imagePosition="none">
+    <ProjectSection imagePosition="right">
         <div slot="description">
         <h1>Shaders</h1>
         <!-- <hr width="1%"> -->
@@ -53,7 +53,7 @@
 
     </ProjectSection>
 
-    <ProjectSection imagePosition="none">
+    <ProjectSection imagePosition="right">
         <div slot="description">
             <h1>Rendering Pipelines</h1>
             <p>Now that we've got our shaders, we'll render each element through one of a few rendering pipelines. Most objects will use a common rendering pipeline, but text rendering needs its own layout. It's a UI element, and so will not a camera transform, but will instead use a 2D transform matrix to move it to the correct position on screen.</p>
@@ -62,9 +62,10 @@
             <br>
             <p>To prevent z-fighting on these double-rendered objects, we also need to add depth stencils. There are three: one for the solid objects, one for other 3D objects, like the wireframes, and one for UI elements, which will always sit on top.</p>
         </div>
+        
     </ProjectSection>
 
-    <ProjectSection imagePosition="none">
+    <ProjectSection imagePosition="right">
         <div slot="description">
             <h1>Scene Assembly</h1>
             <p>The scene is constructed by first gathering all elements to be rendered: entity models, terrain,  text, and helper axes displayed at the origin.</p>
@@ -77,7 +78,9 @@
             <br>
             <p>Once all these elements are ready, we construct the scene in the window. We run an event loop, which handles device events like key and mouse action, and window events, like resizing and closing. It also handles redraw requests, which happen every frame. We use the device to create a command encoder, which contains a RenderPass. Each object that needs to be drawn has a turn setting its bind groups and render pipeline, then calling RenderPipeline::draw_indexed(). These calls are stored in the encoder, which is then submitted through the queue to the GPU to be executed.</p>
         </div>
-
+        <div slot="image">
+            <video loading="lazy" src={cubes} autoplay loop muted playsinline></video>
+        </div>
     </ProjectSection>
 
 
