@@ -51,6 +51,14 @@
             description="Custom data packet protocol for transmitting asynchronous graphical information over network"
         />
 
+        <ProjectCard
+            href="{base}/projects/graphics-engine"
+            imageSrc={proc_diag}
+            title="DATACOM Graphics Engine"
+            subtitle="Multicamera Setup and Recording"
+            description="Fast rendering system for 3D telemetry visualization"
+        />
+
         <!-- <div class="project">
             <a href="{base}/projects/dc-packets"><img src={proc_diag} alt="MultiVAC Demo"></a>
             <a href="{base}/projects/dc-packets"><h2>DATACOM Packet Interface</h2></a>
@@ -66,7 +74,7 @@
         </div> -->
 
         <!-- <div class="project">
-            <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
+            <a href="{base}/"><img src={datacom_default} alt="DATACOM Graphics Pic"></a>
             <a href="{base}/"><h2> DATACOM Graphics Engine </h2></a>
             <a href="{base}/"><h3>Mutlicamera Setup and Recording</h3></a>
             <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>

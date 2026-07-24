@@ -67,6 +67,11 @@ img {
   display: block;
 }
 
+video {
+  max-width: 100%;
+  display: block;
+}
+
 /* ─── Utility ─── */
 .accent        { color: var(--clr-accent); }
 .dim           { color: var(--clr-text-dim); }
