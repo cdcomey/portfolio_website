@@ -5,6 +5,7 @@
     const gsf = `${base}/assets/git_safari.png`;
     const datacom_default = `${base}/assets/masada_test.png`;
     const proc_diag = `${base}/assets/datacom_process_diag_black.png`;
+    const timeline_thumb = `${base}/assets/timeline_thumbnail.png`;
 </script>
 
 <!-- <Header/> -->
@@ -66,12 +67,13 @@
             <a href="{base}/projects/dc-packets"><p>Custom data packet protocol for transmitting asynchronous graphical information over network </p></a>
         </div> -->
 
-        <!-- <div class="project">
-            <a href="{base}/"><img src={datacom_default} alt="MultiVAC Demo"></a>
-            <a href="{base}/"><h2>US History Timeline</h2></a>
-            <a href="{base}/"><h3>Interactive Educational Tool</h3></a>
-            <a href="{base}/"><p>Brief Description Lorem Ipsum </p></a>
-        </div> -->
+        <ProjectCard
+            href="{base}/projects/timeline"
+            imageSrc={timeline_thumb}
+            title="Interactive History Timeline"
+            subtitle="Canvas Port of a Java Desktop App"
+            description="Browser-based timeline viewer rendering thousands of events and periods to canvas"
+        />
 
         <!-- <div class="project">
             <a href="{base}/"><img src={datacom_default} alt="DATACOM Graphics Pic"></a>
