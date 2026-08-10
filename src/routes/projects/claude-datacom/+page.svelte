@@ -42,7 +42,7 @@
         <div slot="description">
             <h1>Claude-DATACOM Interface</h1>
             <hr width="100%">
-            <p>Ever wished Claude could just *show* you what it was talking about, instead of just telling? Using DATACOM, Claude can now visualize, animate, render, and record video of any concept you can think of. Anything like a product demo, data visualization animation, or even displays for your existing toolset can now be easily rendered and iterated on. Any kind of agent can be hooked up with DATACOM as a visualization front end, allowing for a new way of interacting with LLMs. </p>
+            <p>Ever wished Claude could just <b>show</b> you what it was talking about, instead of just telling? Using DATACOM, Claude can now visualize, animate, render, and record video of any concept you can think of. Anything like a product demo, data visualization animation, or even displays for your existing toolset can now be easily rendered and iterated on. Any kind of agent can be hooked up with DATACOM as a visualization front end, allowing for a new way of interacting with LLMs. </p>
         </div>
     </ProjectSection>
 
