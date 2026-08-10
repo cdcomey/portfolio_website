@@ -6,6 +6,8 @@
     const datacom_default = `${base}/assets/masada_test.png`;
     const proc_diag = `${base}/assets/datacom_process_diag_black.png`;
     const timeline_thumb = `${base}/assets/timeline_thumbnail.png`;
+    // TODO: replace with a real thumbnail dropped into static/assets/
+    const claude_datacom_thumb = `${base}/assets/bee_and_flower_tn.png`;
 </script>
 
 <!-- <Header/> -->
@@ -66,6 +68,14 @@
             <a href="{base}/projects/dc-packets"><h3>Asynchronous Networked Graphics Interface</h3></a>
             <a href="{base}/projects/dc-packets"><p>Custom data packet protocol for transmitting asynchronous graphical information over network </p></a>
         </div> -->
+
+        <ProjectCard
+            href="{base}/projects/claude-datacom"
+            imageSrc={claude_datacom_thumb}
+            title="Claude-DATACOM Interface"
+            subtitle=""
+            description="An interface to allow Claude to generate objects and behaviors in a real-time 3D scene"
+        />
 
         <ProjectCard
             href="{base}/projects/timeline"
