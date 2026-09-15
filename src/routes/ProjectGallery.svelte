@@ -6,8 +6,8 @@
     const datacom_default = `${base}/assets/masada_test.png`;
     const proc_diag = `${base}/assets/datacom_process_diag_black.png`;
     const timeline_thumb = `${base}/assets/timeline_thumbnail.png`;
-    // TODO: replace with a real thumbnail dropped into static/assets/
     const claude_datacom_thumb = `${base}/assets/bee_and_flower_tn.png`;
+    const camera_system_thumb = `${base}/assets/rocca-calascio_tn.png`;
 </script>
 
 <!-- <Header/> -->
@@ -68,6 +68,14 @@
             <a href="{base}/projects/dc-packets"><h3>Asynchronous Networked Graphics Interface</h3></a>
             <a href="{base}/projects/dc-packets"><p>Custom data packet protocol for transmitting asynchronous graphical information over network </p></a>
         </div> -->
+
+        <ProjectCard
+            href="{base}/projects/camera-system"
+            imageSrc={camera_system_thumb}
+            title="Dynamic, Flexible Camera System"
+            subtitle="Composable Camera Behaviors"
+            description="Multi-viewport camera system with mix-and-match positional and rotational behaviors"
+        />
 
         <ProjectCard
             href="{base}/projects/claude-datacom"
